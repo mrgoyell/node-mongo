@@ -6,7 +6,7 @@ MongoClient.connect('mongodb://localhost:27017/ToDoApp',{useNewUrlParser:true},(
     }
     const db = client.db('TodoApp');
     db.collection('Users').find({
-        name: 'Random Buoy'
+        _id: new ObjectID('5b912e870072f0208c4174e6')
     }).toArray().then((docs)=>{
         console.log('Users');
         console.log(JSON.stringify(docs,undefined,2));
