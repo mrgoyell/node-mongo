@@ -19,7 +19,17 @@ app.post('/todos',(req,res)=>{
     },(e)=>{
         res.status(400).send(e.errors.text.message);
     });
-})
+});
+
+app.get('/todos',(req,res)=>{
+   Todo.find().then((todos)=>{
+       res.status(200).send({todos});
+   },(e)=>{
+       res.status(400).send({
+           text:'Could not fetch the request'
+       });
+   }); 
+});
 
 app.listen(3000,()=>{
     console.log('Started on port 3000');
