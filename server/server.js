@@ -17,12 +17,12 @@ app.post('/todos',(req,res)=>{
     todo.save().then((doc)=>{
         res.send(doc);
     },(e)=>{
-        res.send(e).status(400);
+        res.status(400).send(e.errors.text.message);
     });
 })
 
 app.listen(3000,()=>{
     console.log('Started on port 3000');
 })
-
+module.exports = {app}; 
 
