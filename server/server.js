@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var {ObjectID} = require('mongodb');
 
 var {mongoose} = require('./db/mongoose.js');
 var {User} = require('./models/user.js');
@@ -29,6 +30,25 @@ app.get('/todos',(req,res)=>{
            text:'Could not fetch the request'
        });
    }); 
+});
+
+app.get('/todos/:id',(req,res)=>{
+    id = req.params.id;
+    if(ObjectID.isValid(id)){
+        User.findById(id).then((user)=>{
+            if(user){
+                res.status(200).send({user});
+            }
+            else{
+                res.status(404);
+            }
+        }).catch((e)=>{
+            res.status(400);
+        });
+    }
+    else{
+        res.status(404).send();
+    }
 });
 
 app.listen(3000,()=>{
